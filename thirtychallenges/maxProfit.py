@@ -12,20 +12,20 @@ class Solution:
         maxProfit = 0
         tmpProfit = 0
         lastPrice = -1
+        buyPrice = -1
 
         for price in prices:
             if lastPrice == -1:
                 lastPrice = price
+                buyPrice = price
             
-            if price >= lastPrice:
-                tmpProfit += price - lastPrice
-            else:
-                maxProfit += tmpProfit
-                tmpProfit = 0
+            if price < lastPrice:
+                maxProfit += lastPrice - buyPrice
+                buyPrice = price
             
             lastPrice = price
 
-        return maxProfit + tmpProfit
+        return maxProfit + (lastPrice - buyPrice if (lastPrice - buyPrice) > 0 else 0)
 
 if __name__ == '__main__':
     scanner = Solution()
