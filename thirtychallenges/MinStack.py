@@ -12,7 +12,7 @@ class MinStack:
         """
         initialize your data structure here.
         """
-        self.head = None
+        self.head: Node = None
 
     def push(self, x: int) -> None:
         if x is not None:
