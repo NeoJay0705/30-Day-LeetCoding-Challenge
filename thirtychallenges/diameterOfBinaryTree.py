@@ -13,21 +13,22 @@ class Solution:
         if not root:
             return 0
 
-        return max(   self.localDiameter(root)
-                    , self.diameterOfBinaryTree(root.left)
-                    , self.diameterOfBinaryTree(root.right))
+        deepestMeter = 0
+        def deepest(treeNode: TreeNode) -> int:
+            nonlocal deepestMeter
+            if not treeNode:
+                return 0
 
-    def deepest(self, treeNode: TreeNode) -> int:
-        if not treeNode:
-            return 0
-        return max(Solution().deepest(treeNode.left),
-                 + Solution().deepest(treeNode.right)) + 1
+            leftDeepest = deepest(treeNode.left)
+            rightDeepest = deepest(treeNode.right)
 
-    def localDiameter(self, treeNode: TreeNode) -> int:
-        if not treeNode:
-            return 0
+            deepestMeter = max(deepestMeter, leftDeepest + rightDeepest)
 
-        return self.deepest(treeNode.left) + self.deepest(treeNode.right)
+            return max(leftDeepest, rightDeepest) + 1
+
+        deepest(root)
+
+        return deepestMeter
 
 if __name__ == '__main__':
     tree = TreeNode(1)
